@@ -24,8 +24,6 @@ public:
 	void setChannels(unsigned int channels = 24); // change the number of channels
 	bool isConnected();
 	
-	void flush();
-	
 private:	
 	int connected;
 	int universes;

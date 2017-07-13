@@ -7,18 +7,6 @@
     <ClCompile>
       <AdditionalIncludeDirectories >..\..\..\addons\ofxDmx\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
-    <Link>
-      <AdditionalLibraryDirectories Condition="'$(Platform)'=='Win32'">..\..\..\addons\ofxDmx\libs\i386;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalLibraryDirectories Condition="'$(Platform)'=='x64'">..\..\..\addons\ofxDmx\libs\amd64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      
-      <AdditionalDependencies>ftd2xx.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-	<PostBuildEvent>
-	  <Command Condition="'$(Platform)'=='Win32'">robocopy "$(ProjectDir)/../../../addons/ofxDmx/libs/i386/" "$(ProjectDir)/bin/" "*.dll" /njs /njh /np /fp /bytes
-%(Command)</Command>
-      <Command Condition="'$(Platform)'=='x64'">robocopy "$(ProjectDir)/../../../addons/ofxDmx/libs/amd64/" "$(ProjectDir)/bin/" "*.dll" /njs /njh /np /fp /bytes
-%(Command)</Command>	  
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup />
 </Project>
