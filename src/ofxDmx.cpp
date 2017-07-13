@@ -9,14 +9,28 @@
 #define DMX_PRO_END_SIZE 1
 #define DMX_PRO_END_MSG 0xE7
 
+#include "pro_util.h"
+#define CHANNEL_MUN_MIN 24
+#define CHANNEL_MUN_MAX 512
+
+
 ofxDmx::ofxDmx()
 :connected(false)
 ,needsUpdate(false) {
+	/*
+		uint8_t Num_Devices =0;
+	Num_Devices = FTDI_ListDevices(); 
+	printf("\n Looking for dmx Devices: %d Found \n", Num_Devices);
+	*/
 }
 
 ofxDmx::~ofxDmx() {
 	serial.close();
 	connected = false;
+	/*
+		disconnect();
+	connected = false;
+	*/
 }
 
 bool ofxDmx::connect(int device, unsigned int channels) {
@@ -24,6 +38,11 @@ bool ofxDmx::connect(int device, unsigned int channels) {
 	connected = serial.setup(device, 57600); 
 	setChannels(channels);
 	return connected;
+	/*
+		connected = FTDI_OpenDevice(device);
+	setChannels(channels);
+
+	return connected;*/
 }
 
 bool ofxDmx::connect(string device, unsigned int channels) {
@@ -40,10 +59,22 @@ bool ofxDmx::isConnected() {
 void ofxDmx::disconnect() {
 	serial.close();
     connected = false;
+	/*
+		if (device_handle != NULL)
+	{
+		printf("closing DMX device...\n");
+		FT_Close(device_handle);
+	}
+    connected = false;
+	*/
 }
 
 void ofxDmx::setChannels(unsigned int channels) {
 	levels.resize(ofClamp(channels, 24, 512));
+	/*
+		levels.resize(ofClamp(channels+1, CHANNEL_MUN_MIN, CHANNEL_MUN_MAX));
+	levels[0] = 0;
+	*/
 }
 
 void ofxDmx::update(bool force) {
@@ -78,6 +109,24 @@ void ofxDmx::update(bool force) {
 		}
 #endif
 	}
+	
+	/*
+		if(needsUpdate || force) {
+		needsUpdate = false;
+		BOOL res = 0;
+		unsigned int dataSize = levels.size();
+		res = FTDI_SendData(SET_DMX_TX_MODE, (unsigned char*)&levels[0], dataSize);
+		// check response from Send function
+		if (res < 0)
+		{
+			printf("FAILED: Sending DMX to PRO \n");
+			disconnect();
+		}
+		else
+		{
+			printf("SUCCESS: Sending DMX to PRO \n");
+		}
+	}*/
 }
 
 bool ofxDmx::badChannel(unsigned int channel) {
@@ -101,6 +150,12 @@ void ofxDmx::setLevel(unsigned int channel, unsigned char level) {
 		levels[channel] = level;
 		needsUpdate = true;
 	}
+	/*
+	if(level != levels[channel]) {
+		levels[channel] = level;
+		needsUpdate = true;
+	}
+	*/
 }
 
 void ofxDmx::clear() {
@@ -115,4 +170,10 @@ unsigned char ofxDmx::getLevel(unsigned int channel) {
 	}
 	channel--; // convert from 1-initial to 0-initial
 	return levels[channel];
+	//channel--; // convert from 1-initial to 0-initial ??
+}
+
+void ofxDmx::flush()
+{
+	FTDI_PurgeBuffer();
 }

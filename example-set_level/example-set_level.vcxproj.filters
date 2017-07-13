@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\testApp.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ucDmx\src\ucDmx.cpp">
+      <Filter>addons\src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons">
+      <UniqueIdentifier>{8e3fd000-92cd-4ba3-838d-80fd29445c73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\src">
+      <UniqueIdentifier>{27a16f27-c3d3-4e3f-8f1f-20dc456e7f5b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\testApp.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ucDmx\src\FTD2XX.H">
+      <Filter>addons\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ucDmx\src\pro_driver.h">
+      <Filter>addons\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ucDmx\src\pro_util.h">
+      <Filter>addons\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ucDmx\src\ucDmx.h">
+      <Filter>addons\src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="icon.rc" />
+  </ItemGroup>
+</Project>
