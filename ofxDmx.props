@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- MSBuild Conditions http://msdn.microsoft.com/en-us/library/7szfhaft.aspx -->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories >..\..\..\addons\ucDmx\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories Condition="'$(Platform)'=='Win32'">..\..\..\addons\ofxDmx\libs\i386;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories Condition="'$(Platform)'=='x64'">..\..\..\addons\ofxDmx\libs\amd64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      
+      <AdditionalDependencies>ftd2xx.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+	<PostBuildEvent>
+	  <Command Condition="'$(Platform)'=='Win32'">robocopy "$(ProjectDir)/../../../addons/ofxDmx/libs/i386/" "$(ProjectDir)/bin/" "*.dll" /njs /njh /np /fp /bytes
+%(Command)</Command>
+      <Command Condition="'$(Platform)'=='x64'">robocopy "$(ProjectDir)/../../../addons/ofxDmx/libs/amd64/" "$(ProjectDir)/bin/" "*.dll" /njs /njh /np /fp /bytes
+%(Command)</Command>	  
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup />
+</Project>
