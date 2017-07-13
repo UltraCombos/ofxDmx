@@ -1,0 +1,30 @@
+// TODO: support input, and perhaps other devices.
+#pragma once
+#include <vector>
+
+class ucDmx {
+public:
+	ucDmx();
+	~ucDmx();
+	
+	bool connect(int device = 0, unsigned int channels = 24);
+	//bool connect(string device, unsigned int channels = 24);
+	void disconnect();
+	
+	void setLevel(unsigned int channel, unsigned char level);
+	void clear();
+	unsigned char getLevel(unsigned int channel);	
+	void update(bool force = false); // send a packet to the dmx controller
+	
+	void setChannels(unsigned int channels = 24); // change the number of channels
+	bool isConnected();
+	void flush();
+	
+private:	
+	int connected;
+	std::vector<unsigned char> levels;
+	bool needsUpdate;
+	
+	bool badChannel(unsigned int channel);
+
+};
