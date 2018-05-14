@@ -1,0 +1,40 @@
+<ofxImGuiParameter>
+	<Settings4ofxImGuiParameter>
+		<PosAndSize>
+			<X>10</X>
+			<Y>10</Y>
+			<Width>465</Width>
+			<Height>444</Height>
+		</PosAndSize>
+		<IsLockedShortcut>false</IsLockedShortcut>
+		<IsHidden>false</IsHidden>
+		<IsEnableMessage>true</IsEnableMessage>
+		<IsMessageAutoGone>true</IsMessageAutoGone>
+	</Settings4ofxImGuiParameter>
+	<Background_Color PixelType="U8">
+		<R>0</R>
+		<G>255</G>
+		<B>0</B>
+		<A>255</A>
+	</Background_Color>
+	<ofxDmx IsOpen="true">
+		<channel_0_>0</channel_0_>
+		<channel_1_>0</channel_1_>
+		<channel_2_>0</channel_2_>
+		<channel_3_>0</channel_3_>
+		<channel_4_>0</channel_4_>
+		<channel_5_>0</channel_5_>
+		<channel_6_>0</channel_6_>
+		<channel_7_>0</channel_7_>
+		<channel_8_>0</channel_8_>
+		<channel_9_>0</channel_9_>
+		<channel_10_>0</channel_10_>
+		<channel_11_>0</channel_11_>
+		<channel_12_>0</channel_12_>
+		<channel_13_>0</channel_13_>
+		<channel_14_>0</channel_14_>
+		<channel_15_>0</channel_15_>
+		<channel_16_>0</channel_16_>
+		<channel_17_>0</channel_17_>
+	</ofxDmx>
+</ofxImGuiParameter>
