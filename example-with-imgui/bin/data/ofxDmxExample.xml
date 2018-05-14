@@ -36,5 +36,7 @@
 		<channel_15_>0</channel_15_>
 		<channel_16_>0</channel_16_>
 		<channel_17_>0</channel_17_>
+	<devices>COM1</devices>
+		<device_name>COM1</device_name>
 	</ofxDmx>
 </ofxImGuiParameter>

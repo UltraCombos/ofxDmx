@@ -29,6 +29,15 @@ ofxDmx::~ofxDmx() {
 	connected = false;
 }
 
+std::vector< std::string > ofxDmx::listDevices() {
+	vector <ofSerialDeviceInfo> lst_info = serial.getDeviceList();
+	std::vector< std::string > lst_name;
+	for (size_t i = 0; i < lst_info.size(); ++i) {
+		lst_name.push_back(lst_info[i].getDeviceName());
+	}
+	return lst_name;
+}
+
 bool ofxDmx::connect(int device, unsigned int channels) {
 	serial.listDevices();
 	connected = serial.setup(device, 57600); 

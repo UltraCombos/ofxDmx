@@ -29,13 +29,21 @@ public:
     void mouseScrolled(float x, float y);
     
 private:
-	void mf_on_ImGui_draw();
+	ofParameter< ofColor >		m_background_color;
+	ofxImGuiParameter			m_imgui_parameter;
+	ofParameterGroup			m_param_group;
+	ofParameter< int >			m_param_channels[MaxNumChannel];
+	ofParameter< ofxImGuiEnum >	m_param_device;
+	ofParameter< std::string >	m_param_device_name;
 
-	ofParameter< ofColor >	m_background_color;
-	ofxImGuiParameter		m_imgui_parameter;
-	ofParameterGroup		m_param_group;
-	ofParameter< int >		m_param_channels[MaxNumChannel];
+	bool						m_need_to_reconnect_device;
 
 	ofxDmx m_dmx;
+
+	void mf_reconnect_device();
+
+	void mf_on_ImGui_draw();
+	void mf_on_chnaged_device_name(std::string&);
+	void mf_on_changed_device(ofxImGuiEnum&);
 
 };

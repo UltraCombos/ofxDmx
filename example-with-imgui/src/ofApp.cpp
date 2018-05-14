@@ -3,12 +3,22 @@
 //--------------------------------------------------------------
 void ofApp::setup()
 {
-    ofSetLogLevel(OF_LOG_VERBOSE);
+    //ofSetLogLevel(OF_LOG_VERBOSE);
 	
 	m_background_color.setName("Background Color");
 	m_background_color.set(ofColor(114, 144, 154));
 
 	m_param_group.setName("ofxDmx");
+
+	{
+		ofxImGuiEnum val;
+		val.content = m_dmx.listDevices();
+		val.select = 0;
+		m_param_device.set("devices", val);
+	}
+
+	m_param_group.add(m_param_device);
+	m_param_group.add(m_param_device_name.set("device name", ""));
 
 	for (size_t i = 0; i < MaxNumChannel; ++i)
 	{
@@ -23,9 +33,10 @@ void ofApp::setup()
 	m_imgui_parameter.load();
 
 	ofAddListener(ofxImGuiParameter::GetOnDrawEvent(), this, &ofApp::mf_on_ImGui_draw);
+	m_param_device.addListener(this, &ofApp::mf_on_changed_device);
+	m_param_device_name.addListener(this, &ofApp::mf_on_chnaged_device_name);
 
-	m_dmx.connect("COM4", MaxNumChannel);
-	m_dmx.update(true); // black on startup
+	m_need_to_reconnect_device = true;
 }
 
 void ofApp::exit()
@@ -36,6 +47,11 @@ void ofApp::exit()
 //--------------------------------------------------------------
 void ofApp::update()
 {
+	if (m_need_to_reconnect_device)
+	{
+		mf_reconnect_device();
+	}
+
 	if (m_dmx.isConnected()) 
 	{
 		m_background_color = ofColor::green;
@@ -59,9 +75,31 @@ void ofApp::draw()
 	ofxImGuiParameter::Draw();
 }
 
+void ofApp::mf_reconnect_device()
+{
+	m_dmx.disconnect();
+
+	if (m_dmx.connect(m_param_device_name, MaxNumChannel))
+	{
+		m_dmx.update(true); // black on startup
+	}
+
+	m_need_to_reconnect_device = false;
+}
+
 void ofApp::mf_on_ImGui_draw()
 {
 	//You can test any ImGui Code here.
+}
+
+void ofApp::mf_on_chnaged_device_name(std::string& name)
+{
+	m_need_to_reconnect_device = true;
+}
+
+void ofApp::mf_on_changed_device(ofxImGuiEnum& val)
+{
+	m_param_device_name = val.content[val.select];
 }
 
 //--------------------------------------------------------------
