@@ -45,7 +45,7 @@ bool ofxDmx::connect(int device, unsigned int channels) {
 	return connected;
 }
 
-bool ofxDmx::connect(string device, unsigned int channels) {
+bool ofxDmx::connect(std::string device, unsigned int channels) {
 	serial.listDevices();
 	connected = serial.setup(device.c_str(), 57600);
 	setChannels(channels);
@@ -62,8 +62,8 @@ void ofxDmx::disconnect() {
 }
 
 void ofxDmx::setChannels(unsigned int channels) {
-	levels.resize(ofClamp(channels + 1, CHANNEL_MUN_MIN, CHANNEL_MUN_MAX));
-	levels2.resize(ofClamp(channels + 1, CHANNEL_MUN_MIN, CHANNEL_MUN_MAX));
+	levels.resize(ofClamp(channels, CHANNEL_MUN_MIN, CHANNEL_MUN_MAX));
+	levels2.resize(ofClamp(channels, CHANNEL_MUN_MIN, CHANNEL_MUN_MAX));
 	levels[0] = 0;
 }
 
@@ -188,7 +188,7 @@ void ofxDmx::setLevel(unsigned int channel, unsigned char level, unsigned int un
 	if(badChannel(channel)) {
 		return;
 	}
-	//channel--; // convert from 1-initial to 0-initial
+	channel--;
 	if (universe == 1) {
 		if(level != levels[channel]) {
 			levels[channel] = level;
@@ -215,5 +215,6 @@ unsigned char ofxDmx::getLevel(unsigned int channel) {
 	if(badChannel(channel)) {
 		return 0;
 	}
+	channel--;
 	return levels[channel];
 }
