@@ -13,6 +13,7 @@ Release*/
 *.exe
 *.dll
 *.lib
+*.VC.db*
 
 # IDE-specific ignore patterns (e.g. user-specific files)
 

@@ -40,9 +40,11 @@
     <ClCompile Include="..\..\..\addons\ofxImGui\libs\imgui\src\imgui_draw.cpp">
       <Filter>addons\ofxImGui\libs\imgui\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxDmx\src\ofxDmx.cpp" />
     <ClCompile Include="..\..\..\addons\ofxImGui\src\ofxImGuiParameter.cpp">
       <Filter>addons\ofxImGui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxDmx\src\ofxDmx.cpp">
+      <Filter>addons\ofxDmx\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -126,9 +128,11 @@
     <ClInclude Include="..\..\..\addons\ofxImGui\libs\imgui\src\stb_truetype.h">
       <Filter>addons\ofxImGui\libs\imgui\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxDmx\src\ofxDmx.h" />
     <ClInclude Include="..\..\..\addons\ofxImGui\src\ofxImGuiParameter.h">
       <Filter>addons\ofxImGui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxDmx\src\ofxDmx.h">
+      <Filter>addons\ofxDmx\src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
