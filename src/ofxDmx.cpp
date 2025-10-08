@@ -20,11 +20,15 @@
 
 ofxDmx::ofxDmx()
 :connected(false)
-,needsUpdate(false) {
+,needsUpdate(false)
+{
 	universes = 1;
+	startChannel = 1;
+	offset = 0;
 }
 
-ofxDmx::~ofxDmx() {
+ofxDmx::~ofxDmx() 
+{
 	serial.close();
 	connected = false;
 }
@@ -138,7 +142,7 @@ void ofxDmx::update(bool force) {
 
 		for (unsigned int i=0; i<universes; i++) {
 
-			unsigned int dataSize = levels.size() + DMX_START_CODE_SIZE;
+			unsigned int dataSize = offset + levels.size() + DMX_START_CODE_SIZE;
 			unsigned int packetSize = DMX_PRO_HEADER_SIZE + dataSize + DMX_PRO_END_SIZE;
 			vector<unsigned char> packet(packetSize);
 			
@@ -151,8 +155,8 @@ void ofxDmx::update(bool force) {
 			
 			// data
 			packet[4] = DMX_START_CODE; // first data byte
-			if (i==0) copy(levels.begin(), levels.end(), packet.begin() + 5);
-			else copy(levels2.begin(), levels2.end(), packet.begin() + 5);
+			if (i==0) copy(levels.begin(), levels.end(), packet.begin() + 5 + offset);
+			else copy(levels2.begin(), levels2.end(), packet.begin() + 5 + offset);
 
 			// end
 			packet[packetSize - 1] = DMX_PRO_END_MSG;
@@ -173,7 +177,7 @@ void ofxDmx::update(bool force) {
 }
 
 bool ofxDmx::badChannel(unsigned int channel) {
-	if(channel > levels.size()) {
+	if(channel - offset > levels.size()) {
 		ofLogError() << "Channel " + ofToString(channel) + " is out of bounds. Only " + ofToString(levels.size()) + " channels are available.";
 		return true;
 	}
@@ -188,7 +192,7 @@ void ofxDmx::setLevel(unsigned int channel, unsigned char level, unsigned int un
 	if(badChannel(channel)) {
 		return;
 	}
-	channel--;
+	channel -= startChannel;
 	if (universe == 1) {
 		if(level != levels[channel]) {
 			levels[channel] = level;
@@ -215,6 +219,24 @@ unsigned char ofxDmx::getLevel(unsigned int channel) {
 	if(badChannel(channel)) {
 		return 0;
 	}
-	channel--;
+	channel -= startChannel;
 	return levels[channel];
 }
+
+void ofxDmx::setStartChannel(unsigned int channel)
+{
+	if (channel == 0)
+	{
+		ofLogError() << "Channel 0 does not exist. DMX channels start at 1.";
+		return;
+	}
+
+	startChannel = channel;
+	offset = startChannel - 1;
+}
+
+unsigned int ofxDmx::getStartChannel()
+{
+	return startChannel;
+}
+

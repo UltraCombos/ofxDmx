@@ -6,6 +6,11 @@
 
 class ofxDmx {
 public:
+	enum
+	{
+		MinNumChannel = 24
+	};
+
 	ofxDmx();
 	~ofxDmx();
 
@@ -13,8 +18,8 @@ public:
 
 	// connect to the serial port. valid number of channels is 24-512. performance
 	// is directly related to the number of channels, so use the minimum required.	
-	bool connect(int device = 0, unsigned int channels = 24);
-	bool connect(std::string device, unsigned int channels = 24);
+	bool connect(int device = 0, unsigned int channels = MinNumChannel);
+	bool connect(std::string device, unsigned int channels = MinNumChannel);
 	void activateMk2(unsigned char key0 = 0xC8, unsigned char key1 = 0xD0, unsigned char key2 = 0x88, unsigned char key3 = 0xAD);
 	void disconnect();
 	
@@ -26,9 +31,15 @@ public:
 	void setChannels(unsigned int channels = 24); // change the number of channels
 	bool isConnected();
 	
+	void setStartChannel(unsigned int channel);
+	unsigned int getStartChannel();
+
 private:	
 	int connected;
 	int universes;
+	int startChannel;
+	int offset;
+
 	std::vector<unsigned char> levels;
 	std::vector<unsigned char> levels2;	// 2nd universe, only for MK2
 	ofSerial serial;

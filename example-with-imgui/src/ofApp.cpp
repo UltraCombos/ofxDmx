@@ -19,6 +19,7 @@ void ofApp::setup()
 
 	m_param_group.add(m_param_device);
 	m_param_group.add(m_param_device_name.set("device name", ""));
+	m_param_group.add(m_param_start_channel_no.set("start channel no", 1, 1, 512));
 
 	for (size_t i = 0; i < MaxNumChannel; ++i)
 	{
@@ -55,9 +56,10 @@ void ofApp::update()
 	if (m_dmx.isConnected()) 
 	{
 		m_background_color = ofColor::green;
-		for (size_t i = 0; i < MaxNumChannel; ++i) 
+		m_dmx.setStartChannel(m_param_start_channel_no);
+		for (unsigned int i = 0; i < MaxNumChannel; ++i) 
 		{
-			m_dmx.setLevel(i + 1, m_param_channels[i]);
+			m_dmx.setLevel(i + m_param_start_channel_no, m_param_channels[i]);
 		}
 
 		m_dmx.update();
@@ -100,6 +102,11 @@ void ofApp::mf_on_chnaged_device_name(std::string& name)
 void ofApp::mf_on_changed_device(ofxImGuiEnum& val)
 {
 	m_param_device_name = val.content[val.select];
+}
+
+void ofApp::mf_on_changed_channel_value(int& val)
+{
+
 }
 
 //--------------------------------------------------------------

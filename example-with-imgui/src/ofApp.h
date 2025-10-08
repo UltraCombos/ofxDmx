@@ -9,7 +9,7 @@ class ofApp : public ofBaseApp
 public:
 	enum
 	{
-		MaxNumChannel = 18,
+		MaxNumChannel = ofxDmx::MinNumChannel,
 	};
 
     void setup();
@@ -35,6 +35,7 @@ private:
 	ofParameter< int >			m_param_channels[MaxNumChannel];
 	ofParameter< ofxImGuiEnum >	m_param_device;
 	ofParameter< std::string >	m_param_device_name;
+	ofParameter< int >			m_param_start_channel_no;
 
 	bool						m_need_to_reconnect_device;
 
@@ -45,5 +46,7 @@ private:
 	void mf_on_ImGui_draw();
 	void mf_on_chnaged_device_name(std::string&);
 	void mf_on_changed_device(ofxImGuiEnum&);
+
+	void mf_on_changed_channel_value(int& val);
 
 };
